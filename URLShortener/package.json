@@ -1,0 +1,22 @@
+{
+  "name": "urlshortener",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "joi": "^17.12.3",
+    "mongoose": "^8.3.2",
+    "nanoid": "^5.0.7",
+    "node-cron": "^3.0.3",
+    "node-telegram-bot-api": "^0.65.1",
+    "pug": "^3.0.2"
+  }
+}

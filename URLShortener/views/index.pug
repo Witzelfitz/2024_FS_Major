@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    title Shorten URL
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="/css/styles.css")
+    script.
+      document.addEventListener("DOMContentLoaded", function() {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+          event.preventDefault();  // Stop the form from submitting the traditional way
+          const formData = new FormData(form);
+          fetch('/shorten', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              originalUrl: formData.get('originalUrl')
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.shortUrl) {
+              const displayDiv = document.querySelector('#display');
+              displayDiv.innerHTML = '<label>Shortened URL:</label>' +
+                                     `<input type="text" value="http://localhost:3000/${data.shortUrl}" readonly>`;
+            } else {
+              alert('Error: ' + data);
+            }
+          })
+          .catch(error => console.error('Error:', error));
+        });
+      });
+  body
+    h1 URL Shortener
+    form(action="/shorten" method="post")
+      div
+        label(for="originalUrl") Enter URL:
+        input(type="text" name="originalUrl" required)
+      button(type="submit") Shorten
+    #display
